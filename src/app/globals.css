@@ -1,26 +1,102 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --radius: 0.625rem;
+  --background: oklch(12% 0.02 270);
+  --foreground: oklch(96% 0.01 95);
+  --card: oklch(16% 0.02 270);
+  --card-foreground: oklch(96% 0.01 95);
+  --muted: oklch(22% 0.02 270);
+  --muted-foreground: oklch(65% 0.03 95);
+  --border: oklch(26% 0.02 270);
+  --input: oklch(22% 0.02 270);
+  --ring: oklch(72% 0.14 85);
+  --gold: oklch(72% 0.14 85);
+  --gold-light: oklch(82% 0.12 85);
+  --gold-dark: oklch(58% 0.16 80);
+  --primary-foreground: oklch(12% 0.02 270);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-dark: var(--gold-dark);
+  --color-primary-foreground: var(--primary-foreground);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  border-color: var(--border);
 }
 
+html,
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+.subtle-pattern {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    color-mix(in oklab, var(--gold) 12%, transparent) 1px,
+    transparent 0
+  );
+  background-size: 24px 24px;
+}
+
+.gold-glow {
+  box-shadow: 0 0 40px -12px color-mix(in oklab, var(--gold) 35%, transparent);
+}
+
+.field-input {
+  height: 2.5rem;
+  width: 100%;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--background) 50%, transparent);
+  padding: 0 0.75rem;
+  font-size: 1rem;
+  color: var(--foreground);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.field-input::placeholder {
+  color: var(--muted-foreground);
+}
+
+.field-input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 1px var(--gold);
+}
+
+select.field-input {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%239a9078' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.6rem center;
+  background-size: 1rem;
+}
+
+@media (min-width: 768px) {
+  .field-input {
+    font-size: 0.875rem;
+  }
 }
